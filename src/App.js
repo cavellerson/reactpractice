@@ -1,23 +1,37 @@
-import logo from './logo.svg';
-import './App.css';
+import {React, useState } from 'react'
+import Names from './components/name.js'
+import Route from 'react'
 
 function App() {
+    const [nameArray, setNameArray] = useState([])
+    const setName = (event) => {
+        event.preventDefault();
+        let userInput = event.target.inputName.value
+        // console.log(event.target.inputName.value);
+        setNameArray([...nameArray,userInput])
+        event.target.inputName.value = ''
+
+
+    }
+
+    const clearNameArray = () => {
+        setNameArray([])
+    }
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <form onSubmit={setName}>
+            <input type="text" placeholder="name" name="inputName"/>
+            <input type="submit" />
+            <button onClick={clearNameArray}>Clear</button>
+
+        </form>
+
+        <Names
+        array = {nameArray}
+        path="/names"
+        />
+
+
     </div>
   );
 }
